@@ -1,13 +1,13 @@
-package org.example.moneylog;
+package org.example.dietlog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MoneylogApplication {
+public class DietlogApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MoneylogApplication.class, args);
+        SpringApplication.run(DietlogApplication.class, args);
     }
 
 }
