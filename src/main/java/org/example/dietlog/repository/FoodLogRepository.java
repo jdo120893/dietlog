@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface FoodLogRepository extends JpaRepository<FoodLog, Long> {
@@ -28,4 +29,35 @@ public interface FoodLogRepository extends JpaRepository<FoodLog, Long> {
                          @Param("mealType") org.example.dietlog.domain.MealType mealType,
                          @Param("category") Category category,
                          Pageable pageable);
+
+    // FoodLogRepository.java에 추가
+
+    @Query("SELECT SUM(f.calorie) FROM FoodLog f WHERE f.user = :user AND f.logDate BETWEEN :from AND :to")
+    Long sumCalorieByUserAndDateRange(@Param("user") User user,
+                                      @Param("from") LocalDate from,
+                                      @Param("to") LocalDate to);
+
+    @Query("SELECT f.mealType AS mealType, SUM(f.calorie) AS total FROM FoodLog f " +
+            "WHERE f.user = :user AND f.logDate BETWEEN :from AND :to " +
+            "GROUP BY f.mealType")
+    List<MealTypeCalorieSum> sumCalorieByMealType(@Param("user") User user,
+                                                  @Param("from") LocalDate from,
+                                                  @Param("to") LocalDate to);
+
+    @Query("SELECT f.category.foodGroup AS foodGroup, SUM(f.calorie) AS total FROM FoodLog f " +
+            "WHERE f.user = :user AND f.logDate BETWEEN :from AND :to " +
+            "GROUP BY f.category.foodGroup")
+    List<FoodGroupCalorieSum> sumCalorieByFoodGroup(@Param("user") User user,
+                                                    @Param("from") LocalDate from,
+                                                    @Param("to") LocalDate to);
+
+    interface MealTypeCalorieSum {
+        MealType getMealType();
+        Long getTotal();
+    }
+
+    interface FoodGroupCalorieSum {
+        String getFoodGroup();
+        Long getTotal();
+    }
 }

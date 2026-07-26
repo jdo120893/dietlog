@@ -5,3 +5,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwL
 
 GET http://localhost:8080/api/foodlogs/1
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwLCJleHAiOjE3ODUwODg5MzB9.xVLQsXQzL7tr1UcT8tOVif0RSQL5ex8W208PS7e5DBUnvjLP4PgIoMV4L_R8d8Lv3b87zOHy4mzBRd-i8EHoCg
+
+
+###
+GET http://localhost:8080/api/statistics/monthly?yearMonth=2026-07
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg2NTI3LCJleHAiOjE3ODUwOTAxMjd9.FiusA3R_-QNWF1z085osUuz94c68wQTklipUP8mrmX_E8rLfLwVgLCCQY-9l22WgidcMuX5pbFwWMidmN0KswA
