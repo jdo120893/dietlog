@@ -1,7 +1,15 @@
-GET http://localhost:8080/api/foodlogs?yearMonth=2026-07&page=0&size=20
+PUT http://localhost:8080/api/foodlogs/1
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwLCJleHAiOjE3ODUwODg5MzB9.xVLQsXQzL7tr1UcT8tOVif0RSQL5ex8W208PS7e5DBUnvjLP4PgIoMV4L_R8d8Lv3b87zOHy4mzBRd-i8EHoCg
+Content-Type: application/json
+
+{
+  "mealType": "LUNCH",
+  "calorie": 700,
+  "categoryId": 1,
+  "memo": "제육볶음 곱빼기",
+  "logDate": "2026-07-08"
+}
 
 ###
-
-GET http://localhost:8080/api/foodlogs/1
+DELETE http://localhost:8080/api/foodlogs/8
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwLCJleHAiOjE3ODUwODg5MzB9.xVLQsXQzL7tr1UcT8tOVif0RSQL5ex8W208PS7e5DBUnvjLP4PgIoMV4L_R8d8Lv3b87zOHy4mzBRd-i8EHoCg

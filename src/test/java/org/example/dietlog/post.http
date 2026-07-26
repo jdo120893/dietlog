@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/api/categories
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MDAwLCJleHAiOjE3ODUwODg2MDB9.VnH8dlmkS06fpON5l9YjvcpcGCFJtTsoisgdlD47UMoTZibc8GaM-GHlu8PdtGVxhIYygzB4ssVSYeY6opBNVw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwLCJleHAiOjE3ODUwODg5MzB9.xVLQsXQzL7tr1UcT8tOVif0RSQL5ex8W208PS7e5DBUnvjLP4PgIoMV4L_R8d8Lv3b87zOHy4mzBRd-i8EHoCg
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/api/foodlogs
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MDAwLCJleHAiOjE3ODUwODg2MDB9.VnH8dlmkS06fpON5l9YjvcpcGCFJtTsoisgdlD47UMoTZibc8GaM-GHlu8PdtGVxhIYygzB4ssVSYeY6opBNVw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwLCJleHAiOjE3ODUwODg5MzB9.xVLQsXQzL7tr1UcT8tOVif0RSQL5ex8W208PS7e5DBUnvjLP4PgIoMV4L_R8d8Lv3b87zOHy4mzBRd-i8EHoCg
 Content-Type: application/json
 
 {
