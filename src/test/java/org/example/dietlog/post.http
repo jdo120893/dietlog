@@ -1,0 +1,43 @@
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "email": "hong@dietlog.com",
+  "password": "pass1234!",
+  "nickname": "홍길동"
+}
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+"email": "hong@dietlog.com",
+"password": "pass1234!"
+}
+
+
+###
+POST http://localhost:8080/api/categories
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MDAwLCJleHAiOjE3ODUwODg2MDB9.VnH8dlmkS06fpON5l9YjvcpcGCFJtTsoisgdlD47UMoTZibc8GaM-GHlu8PdtGVxhIYygzB4ssVSYeY6opBNVw
+Content-Type: application/json
+
+{
+  "name": "점심 한식",
+  "mealType": "LUNCH",
+  "foodGroup": "한식"
+}
+
+###
+POST http://localhost:8080/api/foodlogs
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MDAwLCJleHAiOjE3ODUwODg2MDB9.VnH8dlmkS06fpON5l9YjvcpcGCFJtTsoisgdlD47UMoTZibc8GaM-GHlu8PdtGVxhIYygzB4ssVSYeY6opBNVw
+Content-Type: application/json
+
+{
+  "mealType": "LUNCH",
+  "calorie": 650,
+  "categoryId": 1,
+  "memo": "제육볶음 정식",
+  "logDate": "2026-07-08"
+}
+

@@ -1,0 +1,7 @@
+GET http://localhost:8080/api/foodlogs?yearMonth=2026-07&page=0&size=20
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MDAwLCJleHAiOjE3ODUwODg2MDB9.VnH8dlmkS06fpON5l9YjvcpcGCFJtTsoisgdlD47UMoTZibc8GaM-GHlu8PdtGVxhIYygzB4ssVSYeY6opBNVw
+
+###
+
+GET http://localhost:8080/api/foodlogs/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MDAwLCJleHAiOjE3ODUwODg2MDB9.VnH8dlmkS06fpON5l9YjvcpcGCFJtTsoisgdlD47UMoTZibc8GaM-GHlu8PdtGVxhIYygzB4ssVSYeY6opBNVw
