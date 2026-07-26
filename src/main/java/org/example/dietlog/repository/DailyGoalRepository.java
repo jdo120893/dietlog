@@ -8,9 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface DailyGoalRespository extends JpaRepository<DailyGoal, Long> {
+public interface DailyGoalRepository extends JpaRepository<DailyGoal, Long> {
 
     List<DailyGoal> findByUserAndYearMonth(User user, String yearMonth);
 
     Optional<DailyGoal> findByUserAndYearMonthAndCategory(User user, String yearMont, Category category);
+
+    Optional<DailyGoal> findByIdAndUser(Long id, User user);
 }
