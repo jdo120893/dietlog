@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>dietlog 로그인</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 80px auto; padding: 20px; }
+        h1 { text-align: center; }
+        input { width: 100%; padding: 10px; margin: 6px 0; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; margin-top: 10px; cursor: pointer; }
+        #message { color: red; margin-top: 10px; text-align: center; }
+        .switch { text-align: center; margin-top: 15px; }
+        .switch a { cursor: pointer; color: blue; }
+    </style>
+</head>
+<body>
+<h1>dietlog</h1>
+
+<div id="login-form">
+    <h3>로그인</h3>
+    <input type="email" id="login-email" placeholder="이메일">
+    <input type="password" id="login-password" placeholder="비밀번호">
+    <button onclick="login()">로그인</button>
+    <div class="switch"><a onclick="toggleForm()">계정이 없으신가요? 회원가입</a></div>
+</div>
+
+<div id="signup-form" style="display:none;">
+    <h3>회원가입</h3>
+    <input type="email" id="signup-email" placeholder="이메일">
+    <input type="password" id="signup-password" placeholder="비밀번호">
+    <input type="text" id="signup-nickname" placeholder="닉네임">
+    <button onclick="signup()">회원가입</button>
+    <div class="switch"><a onclick="toggleForm()">이미 계정이 있으신가요? 로그인</a></div>
+</div>
+
+<div id="message"></div>
+
+<script>
+    function toggleForm() {
+        const login = document.getElementById('login-form');
+        const signup = document.getElementById('signup-form');
+        login.style.display = login.style.display === 'none' ? 'block' : 'none';
+        signup.style.display = signup.style.display === 'none' ? 'block' : 'none';
+        document.getElementById('message').innerText = '';
+    }
+
+    async function login() {
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem('accessToken', data.accessToken);
+            window.location.href = '/foodlogs.html';
+        } else {
+            document.getElementById('message').innerText = '로그인 실패: 이메일 또는 비밀번호를 확인하세요.';
+        }
+    }
+
+    async function signup() {
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const nickname = document.getElementById('signup-nickname').value;
+
+        const res = await fetch('/api/auth/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, nickname })
+        });
+
+        if (res.ok) {
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').innerText = '회원가입 성공! 로그인해주세요.';
+            toggleForm();
+        } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerText = '회원가입 실패: 이미 가입된 이메일일 수 있습니다.';
+        }
+    }
+</script>
+</body>
+</html>
