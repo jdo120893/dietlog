@@ -29,6 +29,8 @@ services:
       DB_HOST: mysql
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: 3600000
     ports:
       - "8080:8080"
 

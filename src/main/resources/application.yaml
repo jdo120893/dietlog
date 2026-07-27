@@ -13,16 +13,18 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:3600000}
 logging:
   level:
     org.springframework.security: DEBUG
 ---
-# ==== 로컬 프로파일 (H2 인메모리) =====
+# ===== 로컬 프로파일 (H2 인메모리) =====
 spring:
   config:
     activate:
       on-profile: local
-    import: application-secret.yaml
   datasource:
     url: jdbc:h2:mem:dietlog;MODE=MySQL
     driver-class-name: org.h2.Driver
@@ -35,7 +37,7 @@ spring:
   jpa:
     show-sql: true
 ---
-# === 운영 프로파일 (MySQL 8) ====
+# ===== 운영 프로파일 (MySQL 8) =====
 spring:
   config:
     activate:
