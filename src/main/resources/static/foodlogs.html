@@ -23,12 +23,6 @@
 <div class="form-box">
     <h3>새 기록 등록</h3>
     <select id="category-select"></select>
-    <select id="meal-type">
-        <option value="BREAKFAST">아침</option>
-        <option value="LUNCH">점심</option>
-        <option value="DINNER">저녁</option>
-        <option value="SNACK">간식</option>
-    </select>
     <input type="number" id="calorie" placeholder="칼로리 (kcal)" required min="1">
     <input type="text" id="memo" placeholder="메모 (음식명 등)">
     <input type="date" id="log-date">
@@ -39,7 +33,7 @@
 
 <table id="foodlog-table">
     <thead>
-    <tr><th>날짜</th><th>끼니</th><th>칼로리</th><th>카테고리</th><th>메모</th><th></th></tr>
+    <tr><th>날짜</th><th>칼로리</th><th>카테고리</th><th>메모</th><th></th></tr>
     </thead>
     <tbody id="foodlog-tbody"></tbody>
 </table>
@@ -49,7 +43,6 @@
     if (!token) window.location.href = '/login.html';
 
     const authHeader = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
-    const mealTypeLabel = { BREAKFAST: '아침', LUNCH: '점심', DINNER: '저녁', SNACK: '간식' };
 
     function logout() {
         localStorage.removeItem('accessToken');
@@ -77,7 +70,6 @@
         tbody.innerHTML = page.content.map(f => `
     <tr>
       <td>${f.logDate}</td>
-      <td>${mealTypeLabel[f.mealType]}</td>
       <td>${f.calorie}</td>
       <td>${f.categoryName}</td>
       <td>${f.memo ?? ''}</td>
@@ -89,7 +81,6 @@
     async function createFoodLog() {
         const body = {
             categoryId: Number(document.getElementById('category-select').value),
-            mealType: document.getElementById('meal-type').value,
             calorie: Number(document.getElementById('calorie').value),
             memo: document.getElementById('memo').value,
             logDate: document.getElementById('log-date').value
