@@ -25,3 +25,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjAzMzEwL
 ###
 GET http://localhost:8080/api/foodlogs/export?yearMonth=2026-07
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjAzMzEwLCJleHAiOjE3ODUyMDY5MTB9.LsHxoHL4FZIEVk1SWOLZyqHlxJSF3zpFG6fIQnfRp-Nbk-bGOTHD8hjd42aEpfpeXkUKfDIAQ7M11ELcqF9Qew
+
+
+###
+GET http://localhost:8080/api/goals?yearMonth=2026-07
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjEyNzIxLCJleHAiOjE3ODUyMTYzMjF9.zDGOi459Yoz_oyPIDV4sEGuX38kr9fKzASp-PTHuX3TBBD7kwqO5_eai8lalKgu3yGSsiMZANqM1bIhz5RoMtw
