@@ -35,6 +35,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    public String createRefreshToken() {
+        return java.util.UUID.randomUUID().toString();
+    }
+
     public Long getUserId(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith(key)

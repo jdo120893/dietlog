@@ -23,12 +23,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        String token = authService.login(request.email(), request.password());
-        return ResponseEntity.ok(new LoginResponse(token));
+        AuthService.TokenResponse tokens = authService.login(request.email(), request.password());
+        return ResponseEntity.ok(new LoginResponse(tokens.accessToken(), tokens.refreshToken()));
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity<ReissueResponse> reissue(@RequestBody ReissueRequest request) {
+        String accessToken = authService.reissueAccessToken(request.refreshToken());
+        return ResponseEntity.ok(new ReissueResponse(accessToken));
     }
 
     record SignupRequest(String email, String password, String nickname) {}
     record SignupResponse(Long id, String email, String nickname) {}
     record LoginRequest(String email, String password) {}
-    record LoginResponse(String accessToken) {}
+    record LoginResponse(String accessToken, String refreshToken) {}
+    record ReissueRequest(String refreshToken) {}
+    record ReissueResponse(String accessToken) {}
 }

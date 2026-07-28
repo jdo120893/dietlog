@@ -41,3 +41,10 @@ Content-Type: application/json
   "logDate": "2026-07-08"
 }
 
+###
+POST http://localhost:8080/api/auth/reissue
+Content-Type: application/json
+
+{
+  "refreshToken": "eb4ec81b-5da2-4201-a092-6eb7b1d33a01"
+}
