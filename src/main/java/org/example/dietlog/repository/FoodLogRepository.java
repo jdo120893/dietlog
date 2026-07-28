@@ -30,6 +30,19 @@ public interface FoodLogRepository extends JpaRepository<FoodLog, Long> {
                          @Param("category") Category category,
                          Pageable pageable);
 
+    @Query("SELECT f FROM FoodLog f JOIN FETCH f.category WHERE f.user = :user " +
+            "AND f.logDate BETWEEN :from AND :to " +
+            "AND (:keyword IS NULL OR f.memo LIKE %:keyword%) " +
+            "AND (:minCalorie IS NULL OR f.calorie >= :minCalorie) " +
+            "AND (:maxCalorie IS NULL OR f.calorie <= :maxCalorie)")
+    Page<FoodLog> searchByKeyword(@Param("user") User user,
+                         @Param("keyword") String keyword,
+                         @Param("from") LocalDate from,
+                         @Param("to") LocalDate to,
+                         @Param("minCalorie") Long minCalorie,
+                         @Param("maxCalorie") Long maxCalorie,
+                         Pageable pageable);
+
     // FoodLogRepository.java에 추가
 
     @Query("SELECT SUM(f.calorie) FROM FoodLog f WHERE f.user = :user AND f.logDate BETWEEN :from AND :to")

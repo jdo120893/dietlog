@@ -9,4 +9,19 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg1MzMwL
 
 ###
 GET http://localhost:8080/api/statistics/monthly?yearMonth=2026-07
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MDg2NTI3LCJleHAiOjE3ODUwOTAxMjd9.FiusA3R_-QNWF1z085osUuz94c68wQTklipUP8mrmX_E8rLfLwVgLCCQY-9l22WgidcMuX5pbFwWMidmN0KswA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjAzMzEwLCJleHAiOjE3ODUyMDY5MTB9.LsHxoHL4FZIEVk1SWOLZyqHlxJSF3zpFG6fIQnfRp-Nbk-bGOTHD8hjd42aEpfpeXkUKfDIAQ7M11ELcqF9Qew
+
+
+###
+GET http://localhost:8080/api/foodlogs/search?keyword=제육&from=2026-07-01&to=2026-07-31&page=0&size=20
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjAzMzEwLCJleHAiOjE3ODUyMDY5MTB9.LsHxoHL4FZIEVk1SWOLZyqHlxJSF3zpFG6fIQnfRp-Nbk-bGOTHD8hjd42aEpfpeXkUKfDIAQ7M11ELcqF9Qew
+
+
+###
+GET http://localhost:8080/api/foodlogs/search?from=2026-07-01&to=2026-07-31&minCalorie=100&maxCalorie=1000
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjAzMzEwLCJleHAiOjE3ODUyMDY5MTB9.LsHxoHL4FZIEVk1SWOLZyqHlxJSF3zpFG6fIQnfRp-Nbk-bGOTHD8hjd42aEpfpeXkUKfDIAQ7M11ELcqF9Qew
+
+
+###
+GET http://localhost:8080/api/foodlogs/export?yearMonth=2026-07
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjAzMzEwLCJleHAiOjE3ODUyMDY5MTB9.LsHxoHL4FZIEVk1SWOLZyqHlxJSF3zpFG6fIQnfRp-Nbk-bGOTHD8hjd42aEpfpeXkUKfDIAQ7M11ELcqF9Qew

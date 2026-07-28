@@ -6,6 +6,7 @@ import org.example.dietlog.domain.FoodLog;
 import org.example.dietlog.domain.MealType;
 import org.example.dietlog.domain.User;
 import org.example.dietlog.repository.FoodLogRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class FoodLogService {
         LocalDate from = ym.atDay(1);
         LocalDate to = ym.atEndOfMonth();
         return foodLogRepository.search(user, from, to, mealType, category, pageable);
+    }
+
+    public Page<FoodLog> searchByKeyword(User user, String keyword, LocalDate from, LocalDate to,
+                                         Long minCalorie, Long maxCalorie, Pageable pageable) {
+        return foodLogRepository.searchByKeyword(user, keyword, from, to, minCalorie, maxCalorie, pageable);
     }
 
     public FoodLog getMyFoodLogOrThrow(User user, Long id) {

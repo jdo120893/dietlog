@@ -1,8 +1,10 @@
 package org.example.dietlog.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.dietlog.domain.*;
 import org.example.dietlog.repository.CategoryRepository;
+import org.example.dietlog.repository.FoodLogRepository;
 import org.example.dietlog.repository.UserRepository;
 import org.example.dietlog.service.FoodLogService;
 import org.springframework.data.domain.Page;
@@ -12,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 @RestController
 @RequestMapping("/api/foodlogs")
@@ -37,6 +42,46 @@ public class FoodLogController {
 
         Page<FoodLog> result = foodLogService.search(user, yearMonth, mealType, category, PageRequest.of(page, size));
         return ResponseEntity.ok(result.map(FoodLogResponse::from));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<FoodLogResponse>> searchFoodLogs(
+            Authentication authentication,
+            @RequestParam(required = false) String keyword,
+            @RequestParam LocalDate from,
+            @RequestParam LocalDate to,
+            @RequestParam(required = false) Long minCalorie,
+            @RequestParam(required = false) Long maxCalorie,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        User user = getCurrentUser(authentication);
+        Page<FoodLog> result = foodLogService.searchByKeyword(
+                user, keyword, from, to, minCalorie, maxCalorie, PageRequest.of(page, size));
+        return ResponseEntity.ok(result.map(FoodLogResponse::from));
+    }
+
+    @GetMapping("/export")
+    public void exportFoodLogs(Authentication authentication,
+                               @RequestParam String yearMonth,
+                               HttpServletResponse response) throws IOException {
+        User user = getCurrentUser(authentication);
+        YearMonth ym = YearMonth.parse(yearMonth);
+        Page<FoodLog> page = foodLogService.search(
+                user, yearMonth, null, null, PageRequest.of(0, 1000));
+
+        response.setContentType("text/csv; charset=UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=foodlogs_" + yearMonth + ".csv");
+        response.getWriter().write('\uFEFF'); // 엑셀 한글 깨짐 방지 BOM
+
+        PrintWriter writer = response.getWriter();
+        writer.println("날짜,끼니,칼로리,카테고리,메모");
+        for (FoodLog f : page.getContent()) {
+            writer.printf("%s,%s,%d,%s,%s%n",
+                    f.getLogDate(), f.getMealType(), f.getCalorie(),
+                    f.getCategory().getName(), f.getMemo() == null ? "" : f.getMemo());
+        }
+        writer.flush();
     }
 
     @PostMapping
