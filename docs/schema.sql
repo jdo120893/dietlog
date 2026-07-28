@@ -55,3 +55,14 @@ CREATE TABLE daily_goals (
                                  FOREIGN KEY (category_id) REFERENCES categories(id),
                              UNIQUE KEY uk_dailygoals_user_month_category (user_id, `year_month`, category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE refresh_tokens (
+                                id          BIGINT       NOT NULL AUTO_INCREMENT,
+                                user_id     BIGINT       NOT NULL,
+                                token       VARCHAR(500) NOT NULL,
+                                expires_at  DATETIME     NOT NULL,
+                                PRIMARY KEY (id),
+                                UNIQUE KEY uk_refresh_tokens_token (token),
+                                CONSTRAINT fk_refreshtokens_user
+                                    FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
