@@ -1,8 +1,11 @@
 package org.example.dietlog.security;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dietlog.domain.Category;
+import org.example.dietlog.domain.MealType;
 import org.example.dietlog.domain.RefreshToken;
 import org.example.dietlog.domain.User;
+import org.example.dietlog.repository.CategoryRepository;
 import org.example.dietlog.repository.RefreshTokenRepository;
 import org.example.dietlog.repository.UserRepository;
 import org.example.dietlog.security.JwtTokenProvider;
@@ -19,6 +22,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CategoryRepository categoryRepository;
     private final RefreshTokenRepository refreshTokenRepository;
 
 
@@ -33,8 +37,11 @@ public class AuthService {
                 .password(passwordEncoder.encode(rawPassword))
                 .nickname(nickname)
                 .build();
+        userRepository.save(user);
 
-        return userRepository.save(user);
+        seedDefaultCategories(user);
+
+        return user;
     }
 
     public TokenResponse login(String email, String rawPassword) {
@@ -74,5 +81,16 @@ public class AuthService {
     }
 
     public record TokenResponse(String accessToken, String refreshToken) {
+    }
+
+    private void seedDefaultCategories(User user) {
+        categoryRepository.save(Category.builder()
+                .user(user).name("아침").mealType(MealType.BREAKFAST).foodGroup("일반").build());
+        categoryRepository.save(Category.builder()
+                .user(user).name("점심").mealType(MealType.LUNCH).foodGroup("일반").build());
+        categoryRepository.save(Category.builder()
+                .user(user).name("저녁").mealType(MealType.DINNER).foodGroup("일반").build());
+        categoryRepository.save(Category.builder()
+                .user(user).name("간식").mealType(MealType.SNACK).foodGroup("간식").build());
     }
 }
