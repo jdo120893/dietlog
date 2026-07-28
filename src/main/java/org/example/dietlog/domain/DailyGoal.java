@@ -29,7 +29,7 @@ public class DailyGoal {
     @JoinColumn(name = "category_id", nullable = true)
     private Category category;
 
-    @Column(name = "year_month", nullable = false, length = 7)
+    @Column(name = "`year_month`", nullable = false, length = 7)
     private String yearMonth;
 
     @Column(name = "target_calorie", nullable = false)
