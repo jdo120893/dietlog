@@ -120,6 +120,9 @@
     const authHeader = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
     const mealTypeLabel = { BREAKFAST: '아침', LUNCH: '점심', DINNER: '저녁', SNACK: '간식' };
 
+    let pieChartInstance = null;
+    let barChartInstance = null;
+
     function logout() {
         localStorage.removeItem('accessToken');
         window.location.href = '/login.html';
@@ -155,7 +158,8 @@
 
     function drawPieChart(byFoodGroup) {
         if (!byFoodGroup || byFoodGroup.length === 0) return;
-        new Chart(document.getElementById('pieChart'), {
+        if (pieChartInstance) pieChartInstance.destroy();
+        pieChartInstance = new Chart(document.getElementById('pieChart'), {
             type: 'pie',
             data: {
                 labels: byFoodGroup.map(f => f.foodGroup),
@@ -169,7 +173,8 @@
 
     function drawBarChart(byMealType) {
         if (!byMealType || byMealType.length === 0) return;
-        new Chart(document.getElementById('barChart'), {
+        if (barChartInstance) barChartInstance.destroy();
+        barChartInstance = new Chart(document.getElementById('barChart'), {
             type: 'bar',
             data: {
                 labels: byMealType.map(m => mealTypeLabel[m.mealType] || m.mealType),
