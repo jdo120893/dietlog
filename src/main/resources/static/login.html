@@ -57,7 +57,7 @@
         if (res.ok) {
             const data = await res.json();
             localStorage.setItem('accessToken', data.accessToken);
-            window.location.href = '/foodlogs.html';
+            window.location.href = '/dashboard.html';
         } else {
             document.getElementById('message').innerText = '로그인 실패: 이메일 또는 비밀번호를 확인하세요.';
         }
