@@ -51,7 +51,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/api/goals
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjEyNzIxLCJleHAiOjE3ODUyMTYzMjF9.zDGOi459Yoz_oyPIDV4sEGuX38kr9fKzASp-PTHuX3TBBD7kwqO5_eai8lalKgu3yGSsiMZANqM1bIhz5RoMtw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjE5ODM5LCJleHAiOjE3ODUyMjM0Mzl9.iXs4ZFkHyyhHT1wbdWXkKvgN_ApMI6zr9NuFo6GDzHlSZOIdPUEait38-SaOBkRXANWu1oR9i8_iBTBH-ynr7A
 
 Content-Type: application/json
 
@@ -63,7 +63,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/api/goals
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjEyNzIxLCJleHAiOjE3ODUyMTYzMjF9.zDGOi459Yoz_oyPIDV4sEGuX38kr9fKzASp-PTHuX3TBBD7kwqO5_eai8lalKgu3yGSsiMZANqM1bIhz5RoMtw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzg1MjE5ODM5LCJleHAiOjE3ODUyMjM0Mzl9.iXs4ZFkHyyhHT1wbdWXkKvgN_ApMI6zr9NuFo6GDzHlSZOIdPUEait38-SaOBkRXANWu1oR9i8_iBTBH-ynr7A
 Content-Type: application/json
 
 {

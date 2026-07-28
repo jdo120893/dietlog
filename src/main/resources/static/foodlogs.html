@@ -27,6 +27,16 @@
     <input type="text" id="memo" placeholder="메모 (음식명 등)">
     <input type="date" id="log-date">
     <button onclick="createFoodLog()">등록</button>
+
+    <h3>이번 달 목표 칼로리</h3>
+    <input type="number" id="target-calorie" placeholder="목표 칼로리 (kcal)">
+    <button onclick="setGoal()">목표 설정</button>
+    <div id="goal-display" style="margin-top:10px; font-weight:bold;"></div>
+
+    <h3>기록 검색</h3>
+    <input type="text" id="search-keyword" placeholder="키워드 (음식명)">
+    <button onclick="searchFoodLogs()">검색</button>
+    <button onclick="loadFoodLogs()">전체 보기</button>
 </div>
 
 <div id="message"></div>
@@ -56,14 +66,64 @@
         select.innerHTML = categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
     }
 
+    async function setGoal() {
+        const yearMonth = new Date().toISOString().slice(0, 7);
+        const targetCalorie = Number(document.getElementById('target-calorie').value);
+
+        const res = await fetch('/api/goals', {
+            method: 'POST',
+            headers: authHeader,
+            body: JSON.stringify({ categoryId: null, yearMonth, targetCalorie })
+        });
+
+        if (res.ok) {
+            loadGoal();
+        } else {
+            alert('목표 설정 실패');
+        }
+    }
+
+    async function loadGoal() {
+        const yearMonth = new Date().toISOString().slice(0, 7);
+        const res = await fetch(`/api/goals?yearMonth=${yearMonth}`, { headers: authHeader });
+        const goals = await res.json();
+        const wholeGoal = goals.find(g => g.categoryId === null);
+        document.getElementById('goal-display').innerText =
+            wholeGoal ? `설정된 목표: ${wholeGoal.targetCalorie} kcal` : '설정된 목표 없음';
+    }
+
+    async function searchFoodLogs() {
+        const keyword = document.getElementById('search-keyword').value;
+        const yearMonth = new Date().toISOString().slice(0, 7);
+        const from = yearMonth + '-01';
+        const to = yearMonth + '-31';
+
+        const res = await fetch(`/api/foodlogs/search?keyword=${encodeURIComponent(keyword)}&from=${from}&to=${to}&page=0&size=20`, { headers: authHeader });
+        const page = await res.json();
+        renderTable(page.content);
+    }
+
+    function renderTable(list) {
+        const tbody = document.getElementById('foodlog-tbody');
+        tbody.innerHTML = list.map(f => `
+    <tr>
+      <td>${f.logDate}</td>
+      <td>${mealTypeLabel[f.mealType]}</td>
+      <td>${f.calorie}</td>
+      <td>${f.categoryName}</td>
+      <td>${f.memo ?? ''}</td>
+      <td><button class="delete-btn" onclick="deleteFoodLog(${f.id})">삭제</button></td>
+    </tr>
+  `).join('');
+    }
+
     async function loadFoodLogs() {
         const yearMonth = new Date().toISOString().slice(0, 7);
         const res = await fetch(`/api/foodlogs?yearMonth=${yearMonth}&page=0&size=20`, { headers: authHeader });
-
-        if (res.status === 401 || res.status === 403) {
-            logout();
-            return;
-        }
+        if (res.status === 401 || res.status === 403) { logout(); return; }
+        const page = await res.json();
+        renderTable(page.content);
+    }
 
         const page = await res.json();
         const tbody = document.getElementById('foodlog-tbody');
@@ -122,6 +182,7 @@
     document.getElementById('log-date').value = new Date().toISOString().slice(0, 10);
     loadCategories();
     loadFoodLogs();
+    loadGoal();
 </script>
 </body>
 </html>
