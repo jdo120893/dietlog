@@ -33,6 +33,10 @@
         .panels { display: flex; gap: 20px; margin-bottom: 24px; }
         .panel { flex: 1; background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
         .panel h3 { margin-top: 0; }
+        .goal-panel {
+            background: linear-gradient(135deg, #eef0ff, #f9faff);
+            border: 1px solid #d6d9f7;
+        }
 
         table { width: 100%; border-collapse: collapse; }
         th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 14px; }
@@ -94,17 +98,28 @@
             <input type="date" id="log-date">
             <button onclick="createFoodLog()">등록</button>
         </div>
+    </div>
 
+    <div class="panel goal-panel">
+        <h3>목표 칼로리 설정</h3>
+        <div class="form-inline">
+            <input type="number" id="target-calorie" placeholder="목표 칼로리 (kcal)">
+            <button onclick="setGoal()">목표 설정</button>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h3>기록 검색</h3>
         <div class="form-inline">
             <input type="text" id="search-keyword" placeholder="검색 키워드">
             <button onclick="searchFoodLogs()">검색</button>
             <button onclick="loadFoodLogs()">전체 보기</button>
-            <input type="number" id="target-calorie" placeholder="목표 칼로리">
-            <button onclick="setGoal()">목표 설정</button>
         </div>
+    </div>
 
+    <div class="panel">
         <h3>최근 기록</h3>
-        <table>
+        <table id="foodlog-table">
             <thead>
             <tr><th>날짜</th><th>끼니</th><th>칼로리</th><th>카테고리</th><th>메모</th><th></th></tr>
             </thead>
