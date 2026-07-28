@@ -43,7 +43,7 @@
 
 <table id="foodlog-table">
     <thead>
-    <tr><th>날짜</th><th>칼로리</th><th>카테고리</th><th>메모</th><th></th></tr>
+    <tr><th>날짜</th><th>끼니</th><th>칼로리</th><th>카테고리</th><th>메모</th><th></th></tr>
     </thead>
     <tbody id="foodlog-tbody"></tbody>
 </table>
@@ -53,6 +53,7 @@
     if (!token) window.location.href = '/login.html';
 
     const authHeader = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    const mealTypeLabel = { BREAKFAST: '아침', LUNCH: '점심', DINNER: '저녁', SNACK: '간식' };
 
     function logout() {
         localStorage.removeItem('accessToken');
@@ -125,34 +126,18 @@
         renderTable(page.content);
     }
 
-        const page = await res.json();
-        const tbody = document.getElementById('foodlog-tbody');
-        tbody.innerHTML = page.content.map(f => `
-    <tr>
-      <td>${f.logDate}</td>
-      <td>${f.calorie}</td>
-      <td>${f.categoryName}</td>
-      <td>${f.memo ?? ''}</td>
-      <td><button class="delete-btn" onclick="deleteFoodLog(${f.id})">삭제</button></td>
-    </tr>
-  `).join('');
-    }
-
     async function createFoodLog() {
-        // 1. 선택된 카테고리의 텍스트(예: "점심")를 가져옵니다.
         const categorySelect = document.getElementById('category-select');
         const selectedText = categorySelect.options[categorySelect.selectedIndex].text;
 
-        // 2. 텍스트에 맞춰 백엔드가 원하는 mealType 영어 값으로 변환합니다.
         let deducedMealType = 'BREAKFAST';
         if (selectedText === '점심') deducedMealType = 'LUNCH';
         else if (selectedText === '저녁') deducedMealType = 'DINNER';
         else if (selectedText === '간식') deducedMealType = 'SNACK';
 
-        // 3. 서버로 보낼 데이터에 mealType을 다시 몰래 추가해줍니다.
         const body = {
             categoryId: Number(categorySelect.value),
-            mealType: deducedMealType, // 백엔드 통과를 위한 필수 값
+            mealType: deducedMealType,
             calorie: Number(document.getElementById('calorie').value),
             memo: document.getElementById('memo').value,
             logDate: document.getElementById('log-date').value
@@ -167,7 +152,7 @@
         if (res.ok) {
             document.getElementById('calorie').value = '';
             document.getElementById('memo').value = '';
-            document.getElementById('message').innerText = ''; // 성공 시 에러 메시지 지우기
+            document.getElementById('message').innerText = '';
             loadFoodLogs();
         } else {
             document.getElementById('message').innerText = '등록 실패: 입력값을 확인하세요.';
